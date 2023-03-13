@@ -12,8 +12,8 @@ const BaseImage = () => {
   const [data, setData] = useState(null);
   const [changeQuery, setChangeQuery] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  // const HTTP = "https://api.amadao.network/api/openai/image";
-  const HTTP = "http://192.168.1.172:3000/api/openai/image";
+  const HTTP = "https://api.amadao.network/api/openai/image";
+  // const HTTP = "http://192.168.1.172:3000/api/openai/image";
 
   const handleSubmit = async (e) => {
 
