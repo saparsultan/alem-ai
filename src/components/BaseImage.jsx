@@ -1,7 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
-import axios from "axios";
-import userSvg from "../assets/images/person.svg";
-import logo from "../assets/images/logo.png";
+import React, { useState } from "react";
 import ImageLoader from "./ImageLoader";
 
 const BaseImage = () => {
@@ -16,52 +13,26 @@ const BaseImage = () => {
   // const HTTP = "http://192.168.1.172:3000/api/openai/image";
 
   const handleSubmit = async (e) => {
-
-    // const instance = axios.create({
-    //   baseURL: HTTP,
-    //   // timeout: 1000,
-    //   headers: {
-    //     'Access-Control-Allow-Origin': '*',
-    //     'Access-Control-Allow-Methods': 'GET, POST'
-    //   }
-    // });
-
     e.preventDefault();
     setChangeQuery(true);
     setLoaded(false);
     setSearch("");
-    // await axios
-    //   .post(`${HTTP}`, { description: message, size, count })
-    //   .then((res) => {
-    //     setData(res.data);
-    //     setLoaded(true);
-    //     console.log(message);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // setSearch(message);
-    // setMessage("");
 
     await fetch(`${HTTP}`, {
       method: "POST",
-
       body: JSON.stringify({ description: message, size, count }),
     })
-    .then(res => res.json())
-    .then((res) => {
-      setData(res);
-      setLoaded(true);
-      console.log(res);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
+      .then((res) => res.json())
+      .then((res) => {
+        setData(res);
+        setLoaded(true);
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     setSearch(message);
     setMessage("");
-    // parses JSON response into native JavaScript objects
-
   };
 
   const changeMessage = (e) => {
