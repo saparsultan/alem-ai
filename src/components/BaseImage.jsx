@@ -26,7 +26,6 @@ const BaseImage = () => {
       .then((res) => {
         setData(res);
         setLoaded(true);
-        console.log(res);
       })
       .catch((error) => {
         console.log(error);
