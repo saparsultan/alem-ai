@@ -1,24 +1,42 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import logo from "../assets/images/logo.png"
+import React from "react";
+import { NavLink } from "react-router-dom";
+import logo from "../assets/images/logo.png";
 
 const Header = () => {
   return (
     <header className="header">
       <div className="logo">
         <img src={logo} alt="logo" />
-        <span>Alem AI</span>
+        <span>AISHA AI</span>
       </div>
       <ul className="nav">
         <li>
-        <Link to="/">Chat</Link>
+          <NavLink
+            to="/"
+            style={({ isActive }) => {
+              return {
+                color: isActive ? "#a47af9" : "#d7c9fc",
+              };
+            }}
+          >
+            Чат
+          </NavLink>
         </li>
         <li>
-        <Link to="/images">Image</Link>
+          <NavLink
+            to="/images"
+            style={({ isActive }) => {
+              return {
+                color: isActive ? "#a47af9" : "#d7c9fc",
+              };
+            }}
+          >
+            Изображение
+          </NavLink>
         </li>
       </ul>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

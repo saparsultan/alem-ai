@@ -73,7 +73,8 @@ const BaseImage = () => {
         </div>
       </div>
 
-      <div className="form">
+      <form className="form" onSubmit={handleSubmit}>
+        <div className="form__content">
         <input
           className="form__input"
           placeholder="Ваш вопрос..."
@@ -82,7 +83,7 @@ const BaseImage = () => {
           value={message}
           onChange={changeMessage}
         />
-        <button className="form__btn" onClick={handleSubmit}>
+        <button className="form__btn" type="submit">
           <svg
             width="25"
             height="25"
@@ -93,7 +94,8 @@ const BaseImage = () => {
             <path d="M4.96445 19.9517C4.63112 20.085 4.31445 20.0557 4.01445 19.8637C3.71445 19.6723 3.56445 19.3933 3.56445 19.0267V15.3017C3.56445 15.0683 3.63112 14.86 3.76445 14.6767C3.89779 14.4933 4.08112 14.3767 4.31445 14.3267L11.5645 12.5267L4.31445 10.7267C4.08112 10.6767 3.89779 10.56 3.76445 10.3767C3.63112 10.1933 3.56445 9.985 3.56445 9.75167V6.02667C3.56445 5.66 3.71445 5.38067 4.01445 5.18867C4.31445 4.99733 4.63112 4.96833 4.96445 5.10167L20.3645 11.6017C20.7811 11.785 20.9895 12.0933 20.9895 12.5267C20.9895 12.96 20.7811 13.2683 20.3645 13.4517L4.96445 19.9517Z" />
           </svg>
         </button>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };
