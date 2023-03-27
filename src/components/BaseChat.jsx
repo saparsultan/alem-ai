@@ -1,53 +1,38 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import ReactLoading from "react-loading";
+import cx from "classnames";
 import userSvg from "../assets/images/person.svg";
 import logo from "../assets/images/logo.png";
 
 const BaseChat = () => {
   const [message, setMessage] = useState("");
-  const [messageArray, setMessageArray] = useState([]);
+  const [dialogue, setDialogue] = useState([]);
   const [question, setQuestion] = useState(null);
-  const [answer, setAnswer] = useState("");
 
   const [changeQuery, setChangeQuery] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [messageClick, setMessageClick] = useState("");
 
   const changeMessage = (e) => {
     const { value } = e.target;
     setMessage(value);
-    const data = {
-      question: value,
-    };
-    setQuestion(data);
+    setQuestion(value);
   };
 
   async function postData(e) {
+    dialogue.push({ role: "user", content: question });
     setChangeQuery(true);
     setLoaded(false);
     e.preventDefault();
-    await fetch("https://api.amadao.network/api/openai/", {
+    await fetch("https://api.amadao.network/api/openai/dialogue", {
       method: "POST",
-
-      body: JSON.stringify(question),
+      body: JSON.stringify({ dialogue: dialogue }),
     })
       .then((res) => res.json())
-      .then((res) => setAnswer(res?.answer))
-      .catch((err) => console.log(err));
-    setMessageClick(message);
+      .then((res) => setDialogue([...dialogue, res]))
+      .catch((err) => console.error(err));
+    setMessage("");
     setLoaded(true);
   }
-
-  useEffect(() => {
-    const data = {
-      question: messageClick,
-      answer: answer,
-    };
-    if (messageClick !== "" && answer !== "") {
-      setMessageArray((pre) => [...pre, data]);
-    }
-    setAnswer("");
-  }, [messageClick, answer]);
 
   return (
     <div className="base">
@@ -56,28 +41,31 @@ const BaseChat = () => {
           {changeQuery ? (
             <div className="text-grid">
               {loaded ? (
-                messageArray.length > 0 &&
-                messageArray.map((item, i) => (
-                  <Fragment key={i + item?.question}>
-                    <div className="message message--user">
-                      <div className="message__avatar message__avatar--user">
-                        <img src={userSvg} alt="" />
+                dialogue.length > 0 &&
+                dialogue.map(({ role, content }, i) => {
+                  const roleUser = role === "user";
+                  return (
+                    <Fragment key={i}>
+                      <div
+                        className={cx("message", {
+                          "message--user": roleUser,
+                          "message--ai": !roleUser,
+                        })}
+                      >
+                        <div
+                          className={cx("message__avatar", {
+                            "message__avatar--user": roleUser,
+                          })}
+                        >
+                          <img src={roleUser ? userSvg : logo} alt={role} />
+                        </div>
+                        <div className="message__text">
+                          <p>{content}</p>
+                        </div>
                       </div>
-                      <div className="message__text">
-                        <p>{item?.question}</p>
-                      </div>
-                    </div>
-
-                    <div className="message message--ai">
-                      <div className="message__avatar">
-                        <img src={logo} alt="" />
-                      </div>
-                      <div className="message__text">
-                        <p>{item?.answer}</p>
-                      </div>
-                    </div>
-                  </Fragment>
-                ))
+                    </Fragment>
+                  );
+                })
               ) : (
                 <ReactLoading
                   className="text-grid__typing"
