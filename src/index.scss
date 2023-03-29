@@ -341,6 +341,49 @@ p {
   }
 }
 
+.clear-message {
+  position: absolute;
+  top: 96px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  font-size: .875rem;
+  color: #d7c9fc;
+  border: 3px solid #2e303f;
+  background-color: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color .2 ease-out;
+  svg {
+    width: 20px;
+    height: 20px;
+    path {
+      fill: #d7c9fc;
+    }
+  }
+  &:hover {
+    background-color: #2e303f;
+    transition: background-color .2 ease-out;
+  }
+}
+
+
+@media (max-width: 1068px) {
+  .clear-message {
+    top: 66px;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    max-width: 54rem;
+    width: 100%;
+  }
+  .chats {
+    padding-top: 48px;
+  }
+}
+
 @media (max-width: 864px) {
   .base {
     padding-left: 15px;
@@ -355,33 +398,84 @@ p {
   }
 }
 
-.clear-message {
-  position: absolute;
-  top: 96px;
-  right: 20%;
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  font-size: .875rem;
-  color: #d7c9fc;
-  border: 3px solid #2e303f;
-  background-color: transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color .2 ease-out;
-  svg {
-    width: 20px;
-    height: 20px;
-    margin-right: 4px;
-    path {
-      fill: #d7c9fc;
+@media (max-width: 560px) {
+  .header {
+    padding: 10px 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  .logo {
+    img {
+      width: 20px;
+      height: 20px;
+    }
+    span {
+      font-size: 14px;
+      font-weight: 500;
+      margin-left: 8px;
     }
   }
-  span {
-    line-height: 1;
+  .nav {
+    li {
+      a {
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
   }
-  &:hover {
-    background-color: #2e303f;
-    transition: background-color .2 ease-out;
+  .content {
+    &__empty {
+      h1 {
+        font-size: 28px;
+        font-weight: 600;
+        margin: 12px 0;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+  .base {
+    padding: 0;
+  }
+  .message {
+    grid-template-columns: 32px 1fr;
+    grid-gap: 12px;
+    padding: 15px;
+    &--ai {
+      border-radius: 0;
+    }
+    &__avatar {
+      width: 32px;
+      height: 32px;
+      img {
+        width: 18px;
+        height: 18px;
+      }
+      &--user {
+        img {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+    &__text {
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+  .clear-message {
+    top: 48px;
+    right: auto;
+    width: 95%;
+    padding: 6px;
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  .chats {
+    padding-top: 28px;
   }
 }

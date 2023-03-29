@@ -95,7 +95,7 @@ const BaseChat = () => {
       </div>
 
       {dialogue.length > 0 && (
-        <div className="clear-message" onClick={handleClearMessage}>
+        <div className="clear-message" onClick={handleClearMessage} title="Очистить историю чата">
           <svg
             width="25"
             height="25"
@@ -108,7 +108,6 @@ const BaseChat = () => {
               fill="currentColor"
             />
           </svg>
-          <span>Очистить</span>
         </div>
       )}
 
