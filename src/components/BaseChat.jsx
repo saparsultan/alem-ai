@@ -108,6 +108,7 @@ const BaseChat = () => {
               fill="currentColor"
             />
           </svg>
+          <span>Очистить историю</span>
         </div>
       )}
 

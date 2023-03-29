@@ -363,6 +363,12 @@ p {
       fill: #d7c9fc;
     }
   }
+  span {
+    display: none;
+    font-size: 12px;
+    line-height: 1;
+    margin-left: 5px;
+  }
   &:hover {
     background-color: #2e303f;
     transition: background-color .2 ease-out;
@@ -378,6 +384,9 @@ p {
     right: auto;
     max-width: 54rem;
     width: 100%;
+    span {
+      display: block;
+    }
   }
   .chats {
     padding-top: 48px;
