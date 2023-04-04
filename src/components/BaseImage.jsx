@@ -5,7 +5,7 @@ const BaseImage = () => {
   const [message, setMessage] = useState("");
   const [search, setSearch] = useState("");
   const [size, setSize] = useState("256");
-  const [count, setCount] = useState(6);
+  const [count, setCount] = useState(3);
   const [data, setData] = useState(null);
   const [changeQuery, setChangeQuery] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -54,7 +54,7 @@ const BaseImage = () => {
                         <img src={url} alt="AISHA AI generate images item" />
                       </div>
                     ))
-                  : Array(6)
+                  : Array(3)
                       .fill(0)
                       .map((_, index) => (
                         <ImageLoader key={index} title="Загрузка..." />
@@ -65,7 +65,7 @@ const BaseImage = () => {
             <div className="content__empty">
               <h1>Генерация изображений</h1>
               <p>
-                Будет сгенерировано 6 случайные изображения по вашему запросу
+                Будет сгенерировано 3 случайных изображений по вашему запросу
               </p>
             </div>
           )}
