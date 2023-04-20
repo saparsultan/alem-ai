@@ -24,7 +24,7 @@ const BaseChat = () => {
   };
 
   async function postData(e) {
-    dialogue.push({text: { role: "user", content: question }, audio: ""});
+    dialogue.push({ role: "user", content: question });
     setChangeQuery(true);
     setLoaded(false);
     e.preventDefault();
@@ -45,7 +45,7 @@ const BaseChat = () => {
     }
   }, [dialogue]);
 
-  console.log("dialogue", dialogue)
+  console.log("~ data ~", dialogue)
 
   return (
     <div className="base">
@@ -55,28 +55,27 @@ const BaseChat = () => {
             <div className="text-grid">
               {loaded ? (
                 dialogue.length > 0 &&
-                dialogue.map(({ text, audio }, i) => {
-                  const roleUser = text?.role === "user";
+                dialogue.map((data, i) => {
                   return (
                     <Fragment key={i}>
                       <div
                         className={cx("message", {
-                          "message--user": roleUser,
-                          "message--ai": !roleUser,
+                          "message--user": data?.role === "user",
+                          "message--ai": data?.text?.role,
                         })}
                       >
                         <div
                           className={cx("message__avatar", {
-                            "message__avatar--user": roleUser,
+                            "message__avatar--user": data?.role === "user",
                           })}
                         >
-                          <img src={roleUser ? userSvg : logo} alt={text?.role} />
+                          <img src={data?.role === "user" ? userSvg : logo} alt={data?.text?.role ? data?.text?.role : data?.role} />
                         </div>
                         <div className="message__text">
-                          <p>{text?.content}</p>
+                          <p>{data?.text?.content ? data?.text?.content : data?.content}</p>
                         </div>
                         <div className="message__audio">
-                        {!roleUser && audio !== "" && <audio src={`src="data:audio/mp3;base64,${audio?.audioData}`} controls></audio>}
+                        {data?.text?.role && data?.audio !== "" && <audio src={`src="data:audio/mp3;base64,${data?.audio?.audioData}`} controls></audio>}
                         </div>
                       </div>
                     </Fragment>
