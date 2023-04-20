@@ -1,38 +1,65 @@
-const CACHE_NAME = 'my-pwa-cache-v1';
-const urlsToCache = [
-  '/',
-  '/index.html',
-];
+const CacheKey = "cache-v1";
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+const initCache = () => {
+  return caches.open(CacheKey).then(
+    (cache) => {
+      return cache.addAll(["./index.html"]);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
+const tryNetwork = (req, timeout) => {
+  console.log(req);
+  return new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(reject, timeout);
+    fetch(req).then((res) => {
+      clearTimeout(timeoutId);
+      const responseClone = res.clone();
+      caches.open(CacheKey).then((cache) => {
+        cache.match(req, responseClone);
+      });
+      resolve(res);
+      // Reject also if network fetch rejects.
+    }, reject);
+  });
+};
+
+const getFromCache = async (req) => {
+  console.log("network is off so getting from cache...");
+  return caches.open(CacheKey).then(async (cache) => {
+    return cache.match(req).then((result) => {
+      return result || Promise.reject("no-match");
+    });
+  });
+};
+// eslint-disable-next-line no-restricted-globals
+self.addEventListener("install", (e) => {
+  console.log("Installed");
+  e.waitUntil(initCache());
+});
+// eslint-disable-next-line no-restricted-globals
+self.addEventListener("activate", (e) => {
+  e.waitUntil(
+    caches.keys().then((keyList) => {
+      return Promise.all(
+        keyList.map((key) => {
+          if (key !== CacheKey) {
+            return caches.delete(key);
+          }
+        })
+      );
+    })
   );
 });
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Если ресурс найден в кэше, возвращаем его
-        if (response) {
-          return response;
-        }
-
-        // Если ресурс не найден в кэше, запрашиваем его с сервера
-        return fetch(event.request)
-          .then(response => {
-            // Если ответ от сервера успешный, клонируем его и сохраняем в кэше перед возвратом
-            if (response && response.status === 200 && response.type === 'basic') {
-              const responseToCache = response.clone();
-              caches.open(CACHE_NAME)
-                .then(cache => {
-                  cache.put(event.request, responseToCache);
-                });
-            }
-            return response;
-          });
-      })
+// eslint-disable-next-line no-restricted-globals
+self.addEventListener("fetch", (e) => {
+  console.log("Try network and store result or get data from cache");
+  // Try network and if it fails, go for the cached copy.
+  e.respondWith(
+    tryNetwork(e.request, 400).catch(() => getFromCache(e.request))
   );
 });

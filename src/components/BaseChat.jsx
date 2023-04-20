@@ -24,7 +24,7 @@ const BaseChat = () => {
   };
 
   async function postData(e) {
-    dialogue.push({ role: "user", content: question });
+    dialogue.push({text: { role: "user", content: question }, audio: ""});
     setChangeQuery(true);
     setLoaded(false);
     e.preventDefault();
@@ -45,6 +45,8 @@ const BaseChat = () => {
     }
   }, [dialogue]);
 
+  console.log("dialogue", dialogue)
+
   return (
     <div className="base">
       <div className="chats">
@@ -53,8 +55,8 @@ const BaseChat = () => {
             <div className="text-grid">
               {loaded ? (
                 dialogue.length > 0 &&
-                dialogue.map(({ role, content }, i) => {
-                  const roleUser = role === "user";
+                dialogue.map(({ text, audio }, i) => {
+                  const roleUser = text?.role === "user";
                   return (
                     <Fragment key={i}>
                       <div
@@ -68,10 +70,13 @@ const BaseChat = () => {
                             "message__avatar--user": roleUser,
                           })}
                         >
-                          <img src={roleUser ? userSvg : logo} alt={role} />
+                          <img src={roleUser ? userSvg : logo} alt={text?.role} />
                         </div>
                         <div className="message__text">
-                          <p>{content}</p>
+                          <p>{text?.content}</p>
+                        </div>
+                        <div className="message__audio">
+                        {!roleUser && audio !== "" && <audio src={`src="data:audio/mp3;base64,${audio?.audioData}`} controls></audio>}
                         </div>
                       </div>
                     </Fragment>
