@@ -90,7 +90,7 @@ const BaseChat = () => {
                 />
               )}
               <div className="message__audio" style={{display: 'none'}}>
-                <audio src={`data:audio/wav;base64,${mp3}`} controls autoPlay></audio>}
+                <audio src={`data:audio/wav;base64,${mp3}`} controls autoPlay></audio>
               </div>
             </div>
           ) : (
