@@ -8,6 +8,7 @@ const BaseChat = () => {
   const [message, setMessage] = useState("");
   const [dialogue, setDialogue] = useState([]);
   const [question, setQuestion] = useState(null);
+   const [mp3, setMp3] = useState('')
 
   const [changeQuery, setChangeQuery] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -33,7 +34,10 @@ const BaseChat = () => {
       body: JSON.stringify({ dialogue: dialogue }),
     })
       .then((res) => res.json())
-      .then((res) => setDialogue([...dialogue, res]))
+      .then((res) => {
+        setDialogue([...dialogue, res])
+        setMp3(res.audio["audioData"])
+      })
       .catch((err) => console.error(err));
     setMessage("");
     setLoaded(true);
@@ -74,9 +78,6 @@ const BaseChat = () => {
                         <div className="message__text">
                           <p>{data?.text?.content ? data?.text?.content : data?.content}</p>
                         </div>
-                        <div className="message__audio">
-                        {data?.text?.role && data?.audio !== "" && <audio src={`src="data:audio/mp3;base64,${data?.audio?.audioData}`} controls></audio>}
-                        </div>
                       </div>
                     </Fragment>
                   );
@@ -88,6 +89,9 @@ const BaseChat = () => {
                   color="#fff"
                 />
               )}
+              <div className="message__audio" style={{display: 'none'}}>
+                <audio src={`data:audio/wav;base64,${mp3}`} controls autoPlay></audio>}
+              </div>
             </div>
           ) : (
             <div className="content__empty">
