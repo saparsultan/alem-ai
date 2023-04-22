@@ -8,7 +8,7 @@ const BaseChat = () => {
   const [message, setMessage] = useState("");
   const [dialogue, setDialogue] = useState([]);
   const [question, setQuestion] = useState(null);
-   const [mp3, setMp3] = useState('')
+  const [mp3, setMp3] = useState("");
 
   const [changeQuery, setChangeQuery] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -35,8 +35,8 @@ const BaseChat = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        setDialogue([...dialogue, res])
-        setMp3(res.audio["audioData"])
+        setDialogue([...dialogue, res.text]);
+        setMp3(res.audio["audioData"]);
       })
       .catch((err) => console.error(err));
     setMessage("");
@@ -49,8 +49,6 @@ const BaseChat = () => {
     }
   }, [dialogue]);
 
-  console.log("~ data ~", dialogue)
-
   return (
     <div className="base">
       <div className="chats">
@@ -59,24 +57,27 @@ const BaseChat = () => {
             <div className="text-grid">
               {loaded ? (
                 dialogue.length > 0 &&
-                dialogue.map((data, i) => {
+                dialogue.map(({ role, content }, i) => {
                   return (
                     <Fragment key={i}>
                       <div
                         className={cx("message", {
-                          "message--user": data?.role === "user",
-                          "message--ai": data?.text?.role,
+                          "message--user": role === "user",
+                          "message--ai": role === "assistant",
                         })}
                       >
                         <div
                           className={cx("message__avatar", {
-                            "message__avatar--user": data?.role === "user",
+                            "message__avatar--user": role === "user",
                           })}
                         >
-                          <img src={data?.role === "user" ? userSvg : logo} alt={data?.text?.role ? data?.text?.role : data?.role} />
+                          <img
+                            src={role === "user" ? userSvg : logo}
+                            alt={role}
+                          />
                         </div>
                         <div className="message__text">
-                          <p>{data?.text?.content ? data?.text?.content : data?.content}</p>
+                          <p>{content}</p>
                         </div>
                       </div>
                     </Fragment>
@@ -89,8 +90,12 @@ const BaseChat = () => {
                   color="#fff"
                 />
               )}
-              <div className="message__audio" style={{display: 'none'}}>
-                <audio src={`data:audio/wav;base64,${mp3}`} controls autoPlay></audio>
+              <div className="message__audio" style={{ display: "none" }}>
+                <audio
+                  src={`data:audio/wav;base64,${mp3}`}
+                  controls
+                  autoPlay
+                ></audio>
               </div>
             </div>
           ) : (
@@ -103,7 +108,11 @@ const BaseChat = () => {
       </div>
 
       {dialogue.length > 0 && (
-        <div className="clear-message" onClick={handleClearMessage} title="Очистить историю чата">
+        <div
+          className="clear-message"
+          onClick={handleClearMessage}
+          title="Очистить историю чата"
+        >
           <svg
             width="25"
             height="25"
