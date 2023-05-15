@@ -100,7 +100,7 @@ const BaseChat = () => {
             </div>
           ) : (
             <div className="content__empty">
-              <h1>Чат бот ALEM AI</h1>
+              <h1>Чат бот AISHA AI</h1>
               <p>Получите ответ на ваш вопрос</p>
             </div>
           )}

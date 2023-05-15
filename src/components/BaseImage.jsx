@@ -51,7 +51,7 @@ const BaseImage = () => {
                 {loaded
                   ? data?.map(({ url }, i) => (
                       <div className="images-grid__item" key={i}>
-                        <img src={url} alt="ALEM AI generate images item" />
+                        <img src={url} alt="AISHA AI generate images item" />
                       </div>
                     ))
                   : Array(3)

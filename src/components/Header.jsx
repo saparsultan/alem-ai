@@ -7,7 +7,7 @@ const Header = () => {
     <header className="header">
       <div className="logo">
         <img src={logo} alt="logo" />
-        <span>ALEM AI</span>
+        <span>AISHA AI</span>
       </div>
       <ul className="nav">
         <li>
