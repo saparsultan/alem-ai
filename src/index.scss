@@ -355,7 +355,7 @@ p {
   background-color: transparent;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color .2 ease-out;
+  transition: background-color .2s ease-out;
   svg {
     width: 20px;
     height: 20px;
@@ -371,7 +371,7 @@ p {
   }
   &:hover {
     background-color: #2e303f;
-    transition: background-color .2 ease-out;
+    transition: background-color .2s ease-out;
   }
 }
 
@@ -486,5 +486,135 @@ p {
   }
   .chats {
     padding-top: 28px;
+  }
+}
+
+
+
+.artwork {
+  &-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.17em;
+    font-weight: 500;
+    color: #d7c9fc;
+    margin-bottom: 1em;
+  }
+  &-item {
+    &:not(:last-child) {
+      margin-bottom: 32px;
+    }
+  }
+  &-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 32px;
+  }
+  &-setting {
+    display: flex;
+    flex-direction: column;
+  }
+  &-result {
+    &__image {
+      position: relative;
+      box-sizing: border-box;
+      width: min(100%,calc(calc((calc(calc(min(calc(calc(9.290000000000001px * 100) - 64px) - 216px,800px)) - 144px) / 2) - 5px) * 0.6122448979591837));
+      &:before {
+        content: "";
+        display: block;
+        padding-top: min(calc(100% * 1 / 0.6122448979591837),calc((calc(calc(min(calc(calc(9.290000000000001px * 100) - 64px) - 216px,800px)) - 144px) / 2) - 5px));
+      }
+      img {
+        box-sizing: border-box;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.create-image {
+  h2 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 32px;
+    text-align: center;
+    color: #d7c9fc;
+  }
+}
+
+.setting {
+  &-size {
+    display: grid;
+    grid-template-columns: repeat(5, min-content);
+    justify-content: center;
+    grid-gap: 12px;
+  }
+  &-prompt {
+    &__input {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 21px;
+      outline: none;
+      resize: none;
+      background: #2e303f;
+      color: white;
+    }
+  }
+  &-styles {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    max-width: 445px;
+    width: 100%;
+    &__wrap {
+      display: flex;
+      align-items: center;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        height: 5px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #d7c9fc;
+        border-radius: 50px;
+      }
+    }
+    &__img {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
+.checkboxSize {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &Content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    &Wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: auto;
+      padding: 8px;
+      border: 2px solid #2e303f;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    span {
+      margin-top: 8px;
+      color: #d7c9fc;
+    }
   }
 }
