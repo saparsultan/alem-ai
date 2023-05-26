@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,200&display=swap');
 
+:root {
+  --accent-color: #d7c9fc;
+  --font-size: 16px;
+}
+
+
 * {
   box-sizing: border-box;
 }
@@ -89,6 +95,9 @@ p {
   height: calc(100% - 60px);
   margin: 0 auto;
   overflow: hidden;
+  &--create-image {
+    max-width: 58.625rem;
+  }
 }
 
 .message {
@@ -495,7 +504,7 @@ p {
   &-title {
     font-family: "Montserrat", sans-serif;
     font-size: 1.17em;
-    font-weight: 500;
+    font-weight: 600;
     color: #d7c9fc;
     margin-bottom: 1em;
   }
@@ -507,29 +516,32 @@ p {
   &-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 32px;
+    grid-gap: 48px;
   }
   &-setting {
     display: flex;
     flex-direction: column;
   }
   &-result {
+    position: relative;
     &__image {
+      width: 100%;
+      height: 445px;
       position: relative;
-      box-sizing: border-box;
-      width: min(100%,calc(calc((calc(calc(min(calc(calc(9.290000000000001px * 100) - 64px) - 216px,800px)) - 144px) / 2) - 5px) * 0.6122448979591837));
+      border-radius: 12px;
+      overflow: hidden;
       &:before {
         content: "";
         display: block;
-        padding-top: min(calc(100% * 1 / 0.6122448979591837),calc((calc(calc(min(calc(calc(9.290000000000001px * 100) - 64px) - 216px,800px)) - 144px) / 2) - 5px));
+        padding-top: 100%;
       }
       img {
-        box-sizing: border-box;
         position: absolute;
-        top: 0px;
-        left: 0px;
-        height: 100%;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
   }
@@ -548,7 +560,6 @@ p {
   &-size {
     display: grid;
     grid-template-columns: repeat(5, min-content);
-    justify-content: center;
     grid-gap: 12px;
   }
   &-prompt {
@@ -573,22 +584,40 @@ p {
     max-width: 445px;
     width: 100%;
     &__wrap {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 16px;
       align-items: center;
+      padding-bottom: 16px;
       overflow: auto;
       &::-webkit-scrollbar {
         height: 5px;
+        background-color: rgba(215, 201, 252, 0.1);
+        border-radius: 50px;
       }
       &::-webkit-scrollbar-thumb {
         background-color: #d7c9fc;
         border-radius: 50px;
       }
     }
+    &__row {
+      display: flex;
+    }
     &__img {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+  }
+  &-submit {
+    padding: 24px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    background-color: #fff;
+    border-radius: 20px;
+    outline: none;
+    border: none;
   }
 }
 
@@ -615,6 +644,44 @@ p {
     span {
       margin-top: 8px;
       color: #d7c9fc;
+    }
+  }
+}
+
+.styles {
+  &-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    grid-gap: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
+    &__img {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 95px;
+      height: 95px;
+      border: 3px solid transparent;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: .8;
+      transition: opacity .15s linear;
+      &:hover {
+        opacity: 1;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    &__desc {
+      font-size: 14px;
+      white-space: nowrap;
+      text-align: center;
+      color: var(--accent-color);
     }
   }
 }

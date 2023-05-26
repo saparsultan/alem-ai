@@ -2,52 +2,63 @@ import React, {useEffect, useState} from "react";
 import ImageLoader from "./ImageLoader";
 import CheckboxSize from "./CheckboxSize";
 import imgFinal from "../assets/images/final.jpg"
+import SettingStyles from "./SettingStyles";
 
 const BaseImage = () => {
 
-    const [checked, setChecked] = React.useState("9x16");
-    const [styles, setStyles] = React.useState([]);
+    const [value, setValue] = React.useState("Psychedelic");
+    const [size, setSize] = React.useState("9x16");
+    const [stylesData, setStylesData] = React.useState([]);
+    const [prompt, setPrompt] = React.useState("");
     const HTTP = "https://api.amadao.network/api/dream/generate";
     const HTTP2 = "https://api.amadao.network/api/dream/styles";
 
 
     useEffect(() => {
-        // const handleSubmit = async () => {
-        //     await fetch(`${HTTP}`, {
-        //         method: "POST",
-        //         body: JSON.stringify({description: "мысық", ratio: "9x16", style: 107, taskId: null}),
-        //     })
-        //         .then((res) => res.json())
-        //         .then((res) => {
-        //             console.log("res",res)
-        //         })
-        //         .catch((error) => {
-        //             console.log(error);
-        //         });
-        // };
-
-        const handleSubmit = async () => {
+        const fetchStyles = async () => {
             await fetch(`${HTTP2}`)
                 .then((res) => res.json())
                 .then((res) => {
-                    setStyles(res)
+                    setStylesData(res)
                     console.log("res", res)
                 })
-                .catch((error) => {
-                    console.log(error);
+                .catch((e) => {
+                    console.error(e);
                 });
         };
-        handleSubmit()
+        fetchStyles()
     }, [])
 
-    const handleChange = (e) => {
-        setChecked(e.target.value);
+    const handleSubmit = async () => {
+        await fetch(`${HTTP}`, {
+            method: "POST",
+            body: JSON.stringify({description: {prompt}, ratio: {size}, style: {value}, taskId: null}),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log("res---------------",res)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
-    console.log("checked", checked)
+    const handleChange = (e) => {
+        setSize(e.target.value);
+    };
+    const handlePrompt = (e) => {
+        setPrompt(e.target.value);
+    };
 
+    const handleChangeStyles = (e) => {
+        setValue(e.target.value);
+    };
+
+    console.log("value", value)
+    console.log("size", size)
+    console.log("prompt", prompt)
     return (
-        <div className="base">
+        <div className="base base--create-image" style={{overflow: "auto"}}>
             <div className="create-image">
                 <h2>Создать произведений искусства</h2>
                 <div className="artwork-grid">
@@ -55,7 +66,7 @@ const BaseImage = () => {
                         <div className="artwork-item artwork-setting__size">
                             <h3 className="artwork-title">Размер произведения</h3>
                             <div className="setting-size">
-                                <CheckboxSize value="9x16" onChange={handleChange} checked={checked}>
+                                <CheckboxSize value="9x16" onChange={handleChange} checked={size}>
                                     <svg width="30" height="48" viewBox="0 0 30 48" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -69,7 +80,7 @@ const BaseImage = () => {
                                             fill="white"/>
                                     </svg>
                                 </CheckboxSize>
-                                <CheckboxSize value="1x1" onChange={handleChange} checked={checked}>
+                                <CheckboxSize value="1x1" onChange={handleChange} checked={size}>
                                     <svg width="30" height="48" viewBox="0 0 30 48" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -83,7 +94,7 @@ const BaseImage = () => {
                                             fill="white"/>
                                     </svg>
                                 </CheckboxSize>
-                                <CheckboxSize value="16x9" onChange={handleChange} checked={checked}>
+                                <CheckboxSize value="16x9" onChange={handleChange} checked={size}>
                                     <svg width="30" height="48" viewBox="0 0 30 48" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -97,7 +108,7 @@ const BaseImage = () => {
                                             fill="white"/>
                                     </svg>
                                 </CheckboxSize>
-                                <CheckboxSize value="4x3" onChange={handleChange} checked={checked}>
+                                <CheckboxSize value="4x3" onChange={handleChange} checked={size}>
                                     <svg width="30" height="48" viewBox="0 0 30 48" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -111,7 +122,7 @@ const BaseImage = () => {
                                             fill="white"/>
                                     </svg>
                                 </CheckboxSize>
-                                <CheckboxSize value="3x4" onChange={handleChange} checked={checked}>
+                                <CheckboxSize value="3x4" onChange={handleChange} checked={size}>
                                     <svg width="30" height="48" viewBox="0 0 30 48" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -129,27 +140,16 @@ const BaseImage = () => {
                         </div>
                         <div className="artwork-item artwork-setting__prompt setting-prompt">
                             <div className="artwork-title setting-prompt__caption">Введите подсказку</div>
-                            <input type="text" className="setting-prompt__input" placeholder="Напишите что-нибудь"/>
+                            <input type="text" className="setting-prompt__input" placeholder="Напишите что-нибудь" value={prompt} onChange={handlePrompt}/>
                         </div>
                         <div className="artwork-title setting-prompt__caption">Выберите стиль произведения</div>
                         <div className="artwork-item artwork-setting__styles setting-styles">
-                            <div className="setting-styles__wrap">
-                                {
-                                    styles.map((item, i) => (
-                                        <div className="setting-styles__img" key={i + item.id}>
-                                            <img src={item.photo_url} alt="dededed" width="100px" height="100px"/>
-                                            <div className="setting-styles__name">
-                                                {item.name}
-                                            </div>
-                                        </div>
-                                    ))
-                                }
-                            </div>
-
+                            <SettingStyles data={stylesData} value={value} handleChangeStyles={handleChangeStyles}/>
                         </div>
-                        <button>Создать</button>
+                        <button className="setting-submit" onClick={handleSubmit}>Создать</button>
                     </div>
                     <div className="artwork-result">
+                        <h3 className="artwork-title">Результат произведения</h3>
                         <div className="artwork-result__image">
                             <img src={imgFinal} alt=""/>
                         </div>
