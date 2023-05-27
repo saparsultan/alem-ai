@@ -1,46 +1,41 @@
-import React, {useEffect, useState} from "react";
-import ImageLoader from "./ImageLoader";
+import React, {useEffect} from "react";
 import CheckboxSize from "./CheckboxSize";
-import imgFinal from "../assets/images/final.jpg"
+import emptyImg from "../assets/images/gradient.jpg"
 import SettingStyles from "./SettingStyles";
 
 const BaseImage = () => {
-
-    const [value, setValue] = React.useState("Psychedelic");
+    const HTTP_GENERATE = "https://api.amadao.network/api/dream/generate";
+    const HTTP_STYLES = "https://api.amadao.network/api/dream/styles";
+    const [value, setValue] = React.useState(27);
     const [size, setSize] = React.useState("9x16");
-    const [stylesData, setStylesData] = React.useState([]);
     const [prompt, setPrompt] = React.useState("");
-    const HTTP = "https://api.amadao.network/api/dream/generate";
-    const HTTP2 = "https://api.amadao.network/api/dream/styles";
-
+    const [stylesData, setStylesData] = React.useState([]);
+    const [imageGenerate, setImageGenerate] = React.useState(null);
 
     useEffect(() => {
-        const fetchStyles = async () => {
-            await fetch(`${HTTP2}`)
-                .then((res) => res.json())
-                .then((res) => {
-                    setStylesData(res)
-                    console.log("res", res)
-                })
-                .catch((e) => {
-                    console.error(e);
-                });
-        };
-        fetchStyles()
+        fetchStyles().then(r => {
+            console.log("styles", r)
+            setStylesData(r)
+        })
     }, [])
 
-    const handleSubmit = async () => {
-        await fetch(`${HTTP}`, {
+    async function fetchStyles() {
+        const res = await fetch(`${HTTP_STYLES}`)
+        return await res.json()
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        fetch(`${HTTP_GENERATE}`, {
             method: "POST",
-            body: JSON.stringify({description: {prompt}, ratio: {size}, style: {value}, taskId: null}),
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                console.log("res---------------",res)
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            headers: {},
+            body: JSON.stringify({description: prompt, style: value, ratio: size})
+        }).then((res) => res.json()).then((resJson) => {
+            console.log("resJson", resJson)
+            setImageGenerate(resJson)
+        }).catch((e) => {
+            console.error(e);
+        });
     };
 
     const handleChange = (e) => {
@@ -51,14 +46,17 @@ const BaseImage = () => {
     };
 
     const handleChangeStyles = (e) => {
-        setValue(e.target.value);
+        setValue(+e.target.value);
+    };
+    const handleDownload = (imageUrl) => {
+        const link = document.createElement('a');
+        link.href = imageUrl;
+        link.download = emptyImg;
+        link.click();
     };
 
-    console.log("value", value)
-    console.log("size", size)
-    console.log("prompt", prompt)
     return (
-        <div className="base base--create-image" style={{overflow: "auto"}}>
+        <div className="base base--create-image">
             <div className="create-image">
                 <h2>Создать произведений искусства</h2>
                 <div className="artwork-grid">
@@ -140,18 +138,30 @@ const BaseImage = () => {
                         </div>
                         <div className="artwork-item artwork-setting__prompt setting-prompt">
                             <div className="artwork-title setting-prompt__caption">Введите подсказку</div>
-                            <input type="text" className="setting-prompt__input" placeholder="Напишите что-нибудь" value={prompt} onChange={handlePrompt}/>
+                            <input type="text" className="setting-prompt__input" placeholder="Напишите что-нибудь"
+                                   value={prompt} onChange={handlePrompt}/>
                         </div>
                         <div className="artwork-title setting-prompt__caption">Выберите стиль произведения</div>
                         <div className="artwork-item artwork-setting__styles setting-styles">
                             <SettingStyles data={stylesData} value={value} handleChangeStyles={handleChangeStyles}/>
                         </div>
-                        <button className="setting-submit" onClick={handleSubmit}>Создать</button>
+                        <button className="setting-submit" onClick={handleSubmit} disabled={prompt === ""}>Создать
+                        </button>
                     </div>
                     <div className="artwork-result">
-                        <h3 className="artwork-title">Результат произведения</h3>
+                        <h3 className="artwork-title artwork-result__title">Результат произведения</h3>
                         <div className="artwork-result__image">
-                            <img src={imgFinal} alt=""/>
+                            {
+                                imageGenerate ? <img src={imageGenerate?.result} alt={imageGenerate?.model?.name}/> :
+                                    <img src={emptyImg} alt="empty img"/>
+                            }
+                            {/*<a href={imageGenerate?.result} className="artwork-result__download" download onClick={}>*/}
+                            {/*    download*/}
+                            {/*</a>*/}
+                            <button onClick={() => handleDownload(imageGenerate?.result)}
+                                    className="artwork-result__download">
+                                Скачать изображение
+                            </button>
                         </div>
                     </div>
                 </div>
