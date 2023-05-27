@@ -1,7 +1,8 @@
 import React, {useEffect} from "react";
 import CheckboxSize from "./CheckboxSize";
-import emptyImg from "../assets/images/gradient.jpg"
 import SettingStyles from "./SettingStyles";
+import emptyImg from "../assets/images/gradient.jpg"
+import downloadSvg from "../assets/images/download.svg"
 
 const BaseImage = () => {
     const HTTP_GENERATE = "https://api.amadao.network/api/dream/generate";
@@ -48,7 +49,8 @@ const BaseImage = () => {
     const handleChangeStyles = (e) => {
         setValue(+e.target.value);
     };
-    const handleDownload = (imageUrl) => {
+    const handleDownload = (imageUrl, e) => {
+        e.preventDefault()
         const link = document.createElement('a');
         link.href = imageUrl;
         link.download = emptyImg;
@@ -158,9 +160,9 @@ const BaseImage = () => {
                             {/*<a href={imageGenerate?.result} className="artwork-result__download" download onClick={}>*/}
                             {/*    download*/}
                             {/*</a>*/}
-                            <button onClick={() => handleDownload(imageGenerate?.result)}
+                            <button onClick={(e) => handleDownload(imageGenerate?.result, e)}
                                     className="artwork-result__download">
-                                Скачать изображение
+                                <img src={downloadSvg} alt="Download image"/>
                             </button>
                         </div>
                     </div>

@@ -556,6 +556,17 @@ p {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      width: 40px;
+      height: 40px;
+      outline: none;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      img {
+        position: static;
+        width: 28px;
+        height: 28px;
+      }
     }
     &__title {
       position: absolute;
@@ -686,8 +697,8 @@ p {
     grid-template-columns: 1fr;
     justify-items: center;
     grid-gap: 10px;
-    margin-left: 3px;
-    margin-right: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
     &__img {
       display: flex;
       align-items: center;
@@ -715,5 +726,9 @@ p {
       text-align: center;
       color: var(--accent-color);
     }
+  }
+  &-loader {
+    margin-left: 5px;
+    margin-right: 5px;
   }
 }
