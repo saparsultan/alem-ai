@@ -1,4 +1,4 @@
-import React, {useState, useEffect, CSSProperties} from "react";
+import React, {useState, useEffect} from "react";
 import {HashLoader} from 'react-spinners';
 import CheckboxSize from "./CheckboxSize";
 import SettingStyles from "./SettingStyles";
