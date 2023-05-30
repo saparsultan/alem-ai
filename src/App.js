@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Chat from "./pages/Chat";
-import ImageGenerate from "./pages/ImageGenerate";
+// import ImageGenerate from "./pages/ImageGenerate";
 import ImageCreate from "./pages/ImageCreate";
 
 function App() {
@@ -10,8 +10,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" exact element={<Chat />} />
-        <Route path="/images" exact element={<ImageGenerate />} />
-          <Route path="/image-create" exact element={<ImageCreate />} />
+        {/*<Route path="/images" exact element={<ImageGenerate />} />*/}
+        <Route path="/images" exact element={<ImageCreate />} />
       </Routes>
     </div>
   );

@@ -593,9 +593,9 @@ p {
     font-family: "Montserrat", sans-serif;
     font-size: 28px;
     font-weight: 600;
-    color: #d7c9fc;
     margin-top: .5em;
     margin-bottom: 1em;
+    color: rgb(164, 122, 249);
     @media (max-width: 560px){
       font-size: 24px;
     }
@@ -693,8 +693,8 @@ p {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 60px;
-      height: auto;
+      width: 70px;
+      height: 70px;
       padding: 8px;
       border: 3px solid #2e303f;
       border-radius: 8px;

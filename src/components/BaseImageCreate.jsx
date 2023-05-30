@@ -28,7 +28,6 @@ const BaseImage = () => {
 
     useEffect(() => {
         fetchStyles().then(r => {
-            console.log("styles", r)
             setStylesData(r)
         }).catch(e => console.error(e))
     }, [])
@@ -46,7 +45,6 @@ const BaseImage = () => {
             headers: {},
             body: JSON.stringify({description: prompt, style: value, ratio: size})
         }).then((res) => res.json()).then((resJson) => {
-            console.log("resJson", resJson)
             setImageGenerate(resJson)
         }).catch((e) => {
             console.error(e);
