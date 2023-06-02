@@ -32,6 +32,8 @@ const BaseImage = () => {
         }).catch(e => console.error(e))
     }, [])
 
+    console.log({imageGenerate})
+
     async function fetchStyles() {
         const res = await fetch(`${HTTP_STYLES}`)
         return await res.json()
@@ -74,7 +76,7 @@ const BaseImage = () => {
     return (
         <div className="base base--create-image">
             <div className="create-image">
-                <h2>Создать произведений искусства</h2>
+                {/*<h2>Создать произведений искусства</h2>*/}
                 <div className="artwork-grid">
                     <div className="artwork-setting">
                         <div className="artwork-item artwork-setting__size">
@@ -110,32 +112,34 @@ const BaseImage = () => {
                         </button>
                     </div>
                     <div className="artwork-result">
-                        <h3 className="artwork-title artwork-result__title">Результат произведения</h3>
-                        <div className="artwork-result__image">
-                            {
-                                loading && <div className="artwork-result__loader result-loader">
-                                    <HashLoader
-                                        color="#a47af9"
-                                        cssOverride={override}
-                                        size={50}
-                                        aria-label="Loading Spinner"
-                                        data-testid="loader"
-                                    />
-                                    <div className="result-loader__title">Создание...</div>
-                                </div>
-                            }
-                            {
-                                imageGenerate ? <img src={imageGenerate?.result} alt={imageGenerate?.model?.name}/> :
-                                    <img src={emptyImg} alt="empty img"/>
-                            }
-                            {
-                                imageGenerate?.result &&
+                        <div className="artwork-result__wrapper">
+                            <h3 className="artwork-title artwork-result__title">Результат произведения</h3>
+                            <div className="artwork-result__image">
+                                {
+                                    loading && <div className="artwork-result__loader result-loader">
+                                        <HashLoader
+                                            color="#a47af9"
+                                            cssOverride={override}
+                                            size={50}
+                                            aria-label="Loading Spinner"
+                                            data-testid="loader"
+                                        />
+                                        <div className="result-loader__title">Создание...</div>
+                                    </div>
+                                }
+                                {
+                                    imageGenerate ? <img src={imageGenerate?.result} alt={imageGenerate?.model?.name}/> :
+                                        <img src={emptyImg} alt="empty img"/>
+                                }
+                            </div>
+                            <div className="artwork-result__footer">
                                 <button onClick={(e) => handleDownload(imageGenerate?.result, e)}
-                                        className="artwork-result__download">
+                                        className="artwork-result__download" disabled={imageGenerate?.result}>
                                     <img src={downloadSvg} alt="Download image"/>
                                 </button>
-                            }
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
