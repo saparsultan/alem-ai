@@ -7,9 +7,8 @@ function App() {
     <div className="app">
       <Header />
       <Routes>
-        <Route path="/" exact element={<Chat />} />
-        {/*<Route path="/images" exact element={<ImageGenerate />} />*/}
-        <Route path="/images" exact element={<ImageCreate />} />
+        <Route path="/" element={<Chat />} />
+        <Route path="/images" element={<ImageCreate />} />
       </Routes>
     </div>
   );
