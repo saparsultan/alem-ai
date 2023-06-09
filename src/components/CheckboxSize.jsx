@@ -1,12 +1,9 @@
-const CheckboxSize = ({ children, value, onChange, checked = "9x16" }) => {
+const CheckboxSize = ({ value, onChange, checked = "9x16", loading }) => {
     return (
         <label className="checkboxSize" htmlFor={value}>
-            <input type="radio" id={value} value={value} name="artwork-size" onChange={onChange} checked={checked === value} style={{display: "none"}} />
-            <div className="checkboxSizeContent">
-                <div className="checkboxSizeContentWrap" style={checked === value ? {borderColor: "#d7c9fc"} : {}}>
-                    {children}
-                </div>
-                <span>{value}</span>
+            <input type="radio" id={value} value={value} name="artwork-size" onChange={onChange} checked={checked === value} style={{display: "none"}} disabled={loading} />
+            <div className={loading ? `checkboxSizeContent checkboxSizeContent-${value} notAllowed` : `checkboxSizeContent checkboxSizeContent-${value}`} style={checked === value ? {backgroundColor: "#e2b0ff"} : {}}>
+                <span style={checked === value ? {color: "#1c1c2a"} : {}}>{value}</span>
             </div>
         </label>
     );
