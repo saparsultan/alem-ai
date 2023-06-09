@@ -1,9 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Chat from "./pages/Chat";
-// import ImageGenerate from "./pages/ImageGenerate";
 import ImageCreate from "./pages/ImageCreate";
-
 function App() {
   return (
     <div className="app">
@@ -16,5 +14,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

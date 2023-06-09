@@ -36,14 +36,14 @@ const BaseImage = () => {
     }, [])
 
     async function fetchStyles() {
-        const res = await fetch(process.env.REACT_APP_HTTP_STYLES)
+        const res = await fetch(process.env.REACT_APP_HTTP_STYLES || "https://api.amadao.network/api/dream/styles")
         return await res.json()
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setLoading(true)
-        fetch(process.env.REACT_APP_HTTP_GENERATE, {
+        fetch(process.env.REACT_APP_HTTP_GENERATE || "https://api.amadao.network/api/dream/generate", {
             method: "POST",
             headers: {},
             body: JSON.stringify({style: value, description: prompt, ratio: size})

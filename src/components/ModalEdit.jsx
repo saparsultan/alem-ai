@@ -20,7 +20,7 @@ const ModalEdit = ({open,isPreview, handleOpen, data, style, ratio, idImg}) => {
 
     const handleSubmitEdit = (e) => {
         e.preventDefault()
-        fetch(process.env.REACT_APP_HTTP_GENERATE, {
+        fetch(process.env.REACT_APP_HTTP_GENERATE || "https://api.amadao.network/api/dream/generate", {
             method: "POST",
             headers: {},
             body: JSON.stringify({taskId: idImg, style: style, description: editText, ratio: ratio })
