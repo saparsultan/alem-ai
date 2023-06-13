@@ -20,7 +20,7 @@ const override = {
 
 const BaseImage = () => {
     const [loading, setLoading] = useState(false);
-    const [value, setValue] = useState(27);
+    const [value, setValue] = useState(84);
     const [size, setSize] = useState("9x16");
     const [prompt, setPrompt] = useState("");
     const [stylesData, setStylesData] = useState([]);
