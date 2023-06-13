@@ -94,7 +94,7 @@ const BaseImage = () => {
                 <div className="create-image">
                     {/*<h2>Создать произведений искусства</h2>*/}
                     <div className="artwork-grid">
-                        <div className="artwork-setting" style={isNotAllowed}>
+                        <form className="artwork-setting" style={isNotAllowed} onSubmit={handleSubmit}>
                             <div className="artwork-item artwork-setting__size">
                                 <h3 className="artwork-title">Размер произведения</h3>
                                 <div className="setting-size">
@@ -124,9 +124,9 @@ const BaseImage = () => {
                             <div className="artwork-item artwork-setting__styles setting-styles">
                                 <SettingStyles data={stylesData} value={value} handleChangeStyles={handleChangeStyles} loading={loading}/>
                             </div>
-                            <button className="setting-submit" onClick={handleSubmit} disabled={prompt === "" || loading}>Создать
+                            <button className="setting-submit" type="submit" disabled={prompt === "" || loading}>Создать
                             </button>
-                        </div>
+                        </form>
                         <div className="artwork-result">
                             <div className="artwork-result__header">
                                 <h3 className="artwork-title artwork-result__title">Результат произведения</h3>
