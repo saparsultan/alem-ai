@@ -1262,3 +1262,43 @@ p {
     transform: rotate(360deg);
   }
 }
+
+.policy {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 15px;
+  &__container {
+    max-width: 1420px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  &__title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 32px;
+    text-align: center;
+    color: #d7c9fc;
+    margin-bottom: 36px;
+
+    @media (max-width: 560px) {
+      font-size: 28px;
+      font-weight: 600;
+      margin-top: 12px;
+      margin-bottom: 24px;
+    }
+  }
+  &-heading {
+    margin-top: 24px;
+    margin-bottom: 12px;
+  }
+  p {
+    font-weight: 300;
+    line-height: 147%;
+  }
+  ul {
+    li {
+      a {
+        color: currentColor;
+      }
+    }
+  }
+}
