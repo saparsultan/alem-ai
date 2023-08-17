@@ -105,6 +105,7 @@ p {
     overflow: inherit;
     @media (max-width: 1000px) {
       max-width: 100%;
+      height: auto;
       padding-left: 15px !important;
       padding-right: 15px !important;
     }
@@ -168,7 +169,7 @@ p {
   align-items: center;
   justify-content: center;
   width: 100%;
-  bottom: 0;
+  bottom: 39px;
   background-color: #2e303f;
   border-top: 1px solid rgba(255, 255, 255, .1);
   border-top-left-radius: 15px;
@@ -316,7 +317,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  text-decoration: none;
   img {
     width: 30px;
     height: 30px;
@@ -1300,5 +1301,27 @@ p {
         color: currentColor;
       }
     }
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 0;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: .2px;
+  color: #d7c9fc;
+  background-color: #2e303f;
+  border-top: 1px solid #3b3d4b;
+  p {
+    opacity: .7;
+    margin-right: 12px;
+  }
+  a {
+    color: currentColor;
+    text-decoration: none;
+    opacity: .7;
   }
 }

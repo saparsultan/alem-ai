@@ -1,14 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 
 const Header = () => {
   return (
     <header className="header">
-      <div className="logo">
+      <Link  className="logo" to="/">
         <img src={logo} alt="logo" />
         <span>AISHA AI</span>
-      </div>
+      </Link>
       <ul className="nav">
         <li>
           <NavLink
