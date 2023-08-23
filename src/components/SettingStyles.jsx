@@ -8,11 +8,11 @@ const SettingStyles = ({data, handleChangeStyles, value, loading}) => {
         <div className="setting-styles__wrap">
             {
                 data.length > 0 ?
-                    data.map(({id, name, photo_url}) => (
-                        <div className="styles-item" key={id + name}>
+                    data.map(({id, custom_name, photo_url}) => (
+                        <div className="styles-item" key={id + custom_name}>
                             <label className={loading ? "styles-item__img notAllowed" : "styles-item__img"} htmlFor={id}
                                    style={value === id ? accentBorder : {}}>
-                                <img className="styles-item__" src={photo_url} alt={name} width="100px"
+                                <img className="styles-item__" src={photo_url} alt={custom_name} width="100px"
                                      height="100px"
                                      loading="lazy"/>
                             </label>
@@ -20,7 +20,7 @@ const SettingStyles = ({data, handleChangeStyles, value, loading}) => {
                                    onChange={handleChangeStyles}
                                    checked={value === id} style={{display: "none"}} disabled={loading}/>
                             <div className="styles-item__desc">
-                                {name}
+                                {custom_name}
                             </div>
                         </div>
                     ))
